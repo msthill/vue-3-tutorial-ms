@@ -1,47 +1,28 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <h1>{{ message }}</h1>
+  <p>
+    What has keys but can't open locks, space but no room, and you can enter but
+    can't go outside? What am I?
+  </p>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <button style="width: 200px" @click="showAnswer = !showAnswer">
+    {{ !showAnswer ? 'Show me the answer!' : 'Hide the answer!' }}
+  </button>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <div v-if="showAnswer">A keyboard.</div>
+
+  <div v-show="showAnswer">A keyboard.</div>
+
+  <!-- <div v-if="Math.random() > 0.5">Now you see me</div>
+  <div v-else>Now you don't</div> -->
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script setup>
+import { ref } from 'vue'
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+let message = ref('Hello, v-if!')
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+let showAnswer = ref(false)
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
