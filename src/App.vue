@@ -1,47 +1,39 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="card">
+    <h1 ref="title">Hello, Template Refs!</h1>
+    <input type="text" ref="input" />
+    <button @click="printDomElements">Print DOM elements in console log</button>
+    <button @click="changeTitle">Change title</button>
+  </div>
 </template>
 
+<script setup>
+import { onMounted, ref } from 'vue'
+
+// declare a ref to hold the element reference
+// the name must match template ref value
+let title = ref()
+const input = ref()
+
+function printDomElements() {
+  console.log(title.value)
+  console.log(input.value)
+}
+
+function changeTitle() {
+  title.value.innerText = 'Hello world!'
+}
+
+onMounted(() => {
+  input.value.focus() // programmatically focus an input on component mount
+})
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.card {
+  background-color: purple;
+  color: white;
+  padding: 20px 10px;
+  margin-bottom: 10px;
 }
 </style>
