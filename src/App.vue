@@ -1,102 +1,45 @@
 <template>
-  <!--The most basic form of data binding is text interpolation using the "Mustache" syntax (double curly braces)-->
-  <h1>message: {{ message }}</h1>
-
-  <hr />
-
-  <!--{{message}} refers to the message we defined in data-->
-  <h1>number: {{ number }}</h1>
-
-  <h1>doubleNum(50): {{ doubleNum(50) }}</h1>
-
-  <h1>number * 2 = {{ number * 2 }}</h1>
-
-  <h1>
-    {{ number > 150 ? 'number is great than 150' : 'number is less than 150' }}
-  </h1>
-
-  <h1 v-text="number"></h1>
-
-  <hr />
-
-  <h1>harry: {{ harry }}</h1>
-
-  <h1>harry.name: {{ harry.name }}</h1>
-
-  <h1>hogwartsWizards: {{ hogwartsWizards }}</h1>
-
-  <h1>hogwartsWizards[0]: {{ hogwartsWizards[0] }}</h1>
-  <hr />
-
-  <h1>rawHtml: {{ rawHtml }}</h1>
-
-  <h1 v-text="rawHtml"></h1>
-
-  <h1 v-html="rawHtml"></h1>
+  <h1>{{ message }}</h1>
+  <button @click="sortUsersByAge">Sort users by age</button>
+  <button @click="hideInactiveUsers">Hide inactive users</button>
+  <button @click="showFirstTwoUsers">Show first two users</button>
+  <ul>
+    <li v-for="(user, index) in users" :key="user.id">
+      {{ index }} - {{ user.id }} - {{ user.name }} - {{ user.age }} -
+      {{ user.isActive }}
+    </li>
+  </ul>
 </template>
 
 <script setup>
-let message = 'Hello, Vue!'
-let number = 50
+import { ref } from 'vue'
 
-function doubleNum(num) {
-  return num * 2
+let message = ref('Hello, Array Change Detection!')
+
+const users = ref([
+  { id: 1001, name: 'John Smith', age: 26, isActive: false },
+  { id: 1002, name: 'Tom Doe', age: 16, isActive: false },
+  { id: 1003, name: 'Frankin Wong', age: 18, isActive: true }
+])
+
+function sortUsersByAge() {
+  users.value.sort((a, b) => a.age - b.age)
 }
 
-let harry = {
-  id: 1001,
-  name: 'Harry Potter',
-  house: 'Gryffindor',
-  age: 17, // Age during the final battle of Hogwarts
-  wand: {
-    core: 'Phoenix feather',
-    wood: 'Holly'
-  }
+// filter is a non-mutating method, so we need to replace the old array
+function hideInactiveUsers() {
+  users.value = users.value.filter((user) => user.isActive)
 }
-const hogwartsWizards = [
-  {
-    id: 1001,
-    name: 'Harry Potter',
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Phoenix feather',
-      wood: 'Holly'
-    }
-  },
-  {
-    id: 1002,
-    name: 'Hermione Granger',
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Dragon heartstring',
-      wood: 'Vine'
-    }
-  },
-  {
-    id: 1003,
-    name: 'Ron Weasley',
-    house: 'Gryffindor',
-    age: 17,
-    wand: {
-      core: 'Unicorn hair',
-      wood: 'Willow'
-    }
-  },
-  {
-    id: 1004,
-    name: 'Draco Malfoy',
-    house: 'Slytherin',
-    age: 17,
-    wand: {
-      core: 'Dragon heartstring',
-      wood: 'Hawthorn'
-    }
-  }
-]
 
-let rawHtml = '<span style="color: red">This should be red.</span>'
+// slice is a non-mutating method, so we need to replace the old array
+function showFirstTwoUsers() {
+  users.value = users.value.slice(0, 2)
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.inactive {
+  color: red;
+  text-decoration: line-through;
+}
+</style>
