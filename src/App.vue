@@ -26,12 +26,10 @@ function sortUsersByAge() {
   users.value.sort((a, b) => a.age - b.age)
 }
 
-// filter is a non-mutating method, so we need to replace the old array
 function hideInactiveUsers() {
   users.value = users.value.filter((user) => user.isActive)
 }
 
-// slice is a non-mutating method, so we need to replace the old array
 function showFirstTwoUsers() {
   users.value = users.value.slice(0, 2)
 }
