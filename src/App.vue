@@ -1,20 +1,7 @@
 <template>
-  <div class="app">
-    <Navigation />
-    <RouterView />
-  </div>
+  <router-view></router-view>
 </template>
 
-<script setup>
-import { RouterView } from 'vue-router'
-import Navigation from '@/components/Navigation.vue'
+<script setup></script>
 
-</script>
-
-<style lang="scss" scoped>
-.app {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-</style>
+<style lang="scss" scoped></style>
