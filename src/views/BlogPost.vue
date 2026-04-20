@@ -1,4 +1,3 @@
-
 <template>
     <div class="blog-post-container">
         <div v-if="loading">Loading...</div>
@@ -23,8 +22,6 @@ const loading = ref(true)
 const route = useRoute()
 
 async function loadBlogPost(id) {
-    loading.value = true
-    blogPost.value = null
     try {
         blogPost.value = await api.findById(id)
     } catch (error) {
