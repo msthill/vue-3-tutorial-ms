@@ -1,14 +1,22 @@
-
 <template>
     <nav>
-        <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-        <RouterLink :to="{ name: 'blogPosts' }">Blog Posts</RouterLink>
-        <RouterLink :to="{ name: 'about' }">About</RouterLink>
+        <router-link :to="{ name: 'home' }">Home</router-link>
+        <router-link :to="{ name: 'blogPosts' }">Blog Posts</router-link>
+        <!-- <router-link :to="{ name: 'about' }">About</router-link> -->
+        <a href="#" @click.prevent="goToAbout" :class="{ 'router-link-active': $route.name === 'about' }">
+            About
+        </a>
     </nav>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function goToAbout() {
+    router.push({ name: 'about' });
+}
 </script>
 
 <style lang="scss" scoped>
